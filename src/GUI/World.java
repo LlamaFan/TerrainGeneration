@@ -38,7 +38,7 @@ public class World extends JPanel {
                     g.setColor(Color.white);
                 }
 
-                g.drawRect(i * length, j * length, length, length);
+                g.drawRect(j * length, i * length, length, length);
             }
 
         drawLine(g);
@@ -70,6 +70,6 @@ public class World extends JPanel {
     // This method makes the mathematical function
 
     private double function(double x) {
-        return Math.sin(x) * 100;
+        return Math.sin(x);
     }
 }

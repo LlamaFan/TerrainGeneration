@@ -19,6 +19,7 @@ public class Window extends JFrame implements Runnable {
         pack();
 
         setVisible(true);
+        run();
     }
 
     @Override
