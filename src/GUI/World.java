@@ -38,7 +38,7 @@ public class World extends JPanel {
                     g.setColor(Color.white);
                 }
 
-                g.drawRect(j * length, i * length, length, length);
+                g.drawRect(i * length, j * length, 5, 5);
             }
 
         drawLine(g);
@@ -63,6 +63,7 @@ public class World extends JPanel {
                 terrain[i][0] = 1;
             } else {
                 terrain[i][(int) Math.round(function(i))] = 1;
+                //System.out.println("J: " + ((int) Math.round(function(i))));
             }
         }
     }
@@ -70,6 +71,6 @@ public class World extends JPanel {
     // This method makes the mathematical function
 
     private double function(double x) {
-        return Math.sin(x);
+        return Math.sin(x) * 100;
     }
 }
