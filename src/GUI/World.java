@@ -2,6 +2,7 @@ package GUI;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Random;
 
 public class World extends JPanel {
     private final int size = 500;
@@ -29,18 +30,20 @@ public class World extends JPanel {
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
+        Graphics2D g2 = (Graphics2D) g;
 
         for (int i = 0; i < squares; i++)
             for (int j = 0; j < squares; j++) {
                 if (terrain[i][j] == 0) {
-                    g.setColor(Color.black);
+                    g2.setColor(Color.black);
                 } else {
-                    g.setColor(Color.white);
+                    g2.setColor(Color.white);
                 }
 
-                g.drawRect(i * length, j * length, 5, 5);
+                g2.fillRect(i * length, j * length, length, length);
             }
 
+        g.setColor(Color.darkGray);
         drawLine(g);
         g.dispose();
     }
@@ -57,13 +60,14 @@ public class World extends JPanel {
 
     private void convert() {
         for (int i = 0; i < squares; i++) {
-            if ((int) Math.round(function(i)) >= squares) {
+            int value = (int) function(i);
+
+            if (value >= squares) {
                 terrain[i][squares - 1] = 1;
-            } else if ((int) Math.round(function(i)) <= 0) {
+            } else if (value <= 0) {
                 terrain[i][0] = 1;
             } else {
-                terrain[i][(int) Math.round(function(i))] = 1;
-                //System.out.println("J: " + ((int) Math.round(function(i))));
+                terrain[i][value] = 1;
             }
         }
     }
@@ -71,6 +75,28 @@ public class World extends JPanel {
     // This method makes the mathematical function
 
     private double function(double x) {
-        return Math.sin(x) * 100;
+        Random r = new Random();
+
+        double c = 1;
+        double k = 2;
+
+        double f1 = r.nextInt(10) - 10;
+        double f2 = r.nextInt(10) - 10;
+        double f3 = r.nextInt(10) - 10;
+        double f4 = r.nextInt(10) - 10;
+
+        double a1 = Math.random() - c / 2;
+        double a2 = Math.random() - c / 2;
+        double a3 = Math.random() - c / 2;
+        double a4 = Math.random() - c / 2;
+
+        double o1 = Math.random() * 10 - 6;
+        double o2 = Math.random() * 10 - 6;
+        double o3 = Math.random() * 10 - 6;
+        double o4 = Math.random() * 10 - 6;
+
+        double result = (a1*Math.sin(f1*(k * x + o1)) + a2*Math.sin(f2*(k * x + o2)) + a3*Math.sin(f3*(k * x + o3)) + a4*Math.sin(f2*(k * x + o4))) * 100;
+        System.out.println(result);
+        return result;
     }
 }
