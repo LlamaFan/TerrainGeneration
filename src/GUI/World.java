@@ -44,7 +44,7 @@ public class World extends JPanel {
             }
 
         g.setColor(Color.darkGray);
-        drawLine(g);
+        //drawLine(g);
         g.dispose();
     }
 
@@ -60,7 +60,7 @@ public class World extends JPanel {
 
     private void convert() {
         for (int i = 0; i < squares; i++) {
-            int value = (int) function(i);
+            int value = (int) function2(i);
 
             if (value >= squares) {
                 terrain[i][squares - 1] = 1;
@@ -74,28 +74,36 @@ public class World extends JPanel {
 
     // This method makes the mathematical function
 
+    private double function2(int x) {
+        return Math.sin(x / 10) * 10 + squares / 2;
+    }
+
     private double function(double x) {
         Random r = new Random();
 
         double c = 1;
-        double k = 2;
+        double k = 1;
 
-        double f1 = r.nextInt(10) - 10;
-        double f2 = r.nextInt(10) - 10;
-        double f3 = r.nextInt(10) - 10;
-        double f4 = r.nextInt(10) - 10;
+        double f1 = r.nextDouble(10);
+        double f2 = r.nextDouble(10);
+        double f3 = r.nextDouble(10);
+        double f4 = r.nextDouble(10);
 
-        double a1 = Math.random() - c / 2;
-        double a2 = Math.random() - c / 2;
-        double a3 = Math.random() - c / 2;
-        double a4 = Math.random() - c / 2;
+        double a1 = r.nextDouble((c/f1)) - (c/f1);
+        double a2 = r.nextDouble((c/f1)) - (c/f1);
+        double a3 = r.nextDouble((c/f1)) - (c/f1);
+        double a4 = r.nextDouble((c/f1)) - (c/f1);
 
-        double o1 = Math.random() * 10 - 6;
-        double o2 = Math.random() * 10 - 6;
-        double o3 = Math.random() * 10 - 6;
-        double o4 = Math.random() * 10 - 6;
+        double o1 = r.nextDouble(6.28);
+        double o2 = r.nextDouble(6.28);
+        double o3 = r.nextDouble(6.28);
+        double o4 = r.nextDouble(6.28);
 
-        double result = (a1*Math.sin(f1*(k * x + o1)) + a2*Math.sin(f2*(k * x + o2)) + a3*Math.sin(f3*(k * x + o3)) + a4*Math.sin(f2*(k * x + o4))) * 100;
+        double result = (
+            a1 * Math.sin(f1 * (k * (x / squares) + o1)) +
+            a2 * Math.sin(f2 * (k * (x / squares) + o2)) +
+            a3 * Math.sin(f3 * (k * (x / squares) + o3)) +
+            a4 * Math.sin(f4 * (k * (x / squares) + o4))) * squares + squares / 2;
         System.out.println(result);
         return result;
     }

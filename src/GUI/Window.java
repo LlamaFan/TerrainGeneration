@@ -25,7 +25,7 @@ public class Window extends JFrame implements Runnable {
     @Override
     public void run() {
         double lastTime = System.currentTimeMillis();
-        int ticks = 5;
+        int ticks = 1;
 
         running = true;
 
