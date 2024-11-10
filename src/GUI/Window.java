@@ -30,12 +30,10 @@ public class Window extends JFrame implements Runnable {
         running = true;
 
         while (running) {
-            if (lastTime + 1000000 >= System.currentTimeMillis()) {
+            if (System.currentTimeMillis() >= lastTime + 1000 / ticks) {
                 world.repaint();
-                System.out.println("Test");
+                lastTime = System.currentTimeMillis();
             }
-
-            //Scanner sc = new Scanner();
         }
     }
 }
