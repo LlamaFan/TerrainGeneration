@@ -59,8 +59,8 @@ public class Terrain {
     // This method will initialize all the arrays and set certain values;
 
     private void initialize() {
-        c = 1;
-        k = 1;
+        c = 0.5;
+        k = 5;
 
         sins = 10;
         Random r = new Random();

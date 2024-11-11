@@ -4,7 +4,6 @@ import Terrain.Terrain;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Random;
 
 public class World extends JPanel {
     private final int size = 500;
