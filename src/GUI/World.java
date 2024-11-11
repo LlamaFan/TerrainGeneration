@@ -67,10 +67,28 @@ public class World extends JPanel {
     // The method will convert the mathematical function into the array
 
     private void convert() {
+        initialize();
+
+        for (int i = 0; i < squares; i++) {
+            int value = (int) Math.round(function(i, 100, 500));
+
+            if (value >= squares) {
+                terrain[i][squares - 1] = 1;
+            } else if (value <= 0) {
+                terrain[i][0] = 1;
+            } else {
+                terrain[i][value] = 1;
+            }
+        }
+    }
+
+    // This method will initialize all the arrays and set certain values;
+
+    private void initialize() {
         c = 1;
         k = 1;
 
-        sins = 5;
+        sins = 10;
         Random r = new Random();
 
         f = new double[sins];
@@ -85,18 +103,6 @@ public class World extends JPanel {
 
         for (int i = 0; i < sins; i++)
             o[i] = r.nextDouble(6.28);
-
-        for (int i = 0; i < squares; i++) {
-            int value = (int) Math.round(function(i, 10));
-
-            if (value >= squares) {
-                terrain[i][squares - 1] = 1;
-            } else if (value <= 0) {
-                terrain[i][0] = 1;
-            } else {
-                terrain[i][value] = 1;
-            }
-        }
     }
 
     // This method makes the mathematical function
@@ -105,12 +111,12 @@ public class World extends JPanel {
         return Math.sin((double) x /10) * 5 + (double) squares / 2;
     }
 
-    private double function(double x, double range) {
+    private double function(double x, double range, double height) {
         double result = 0;
         for (int i = 0; i < sins; i++)
             result += a[i] * Math.sin(f[i] * (k * (x / range) + o[i]));
 
-        result = result * 10 + (double) squares / 2;
+        result = result / sins * height + (double) squares / 2;
         return result;
     }
 }
