@@ -9,12 +9,12 @@ public class Terrain {
 
     private int[][] terrain;
 
-    double[] f;
     double[] a;
-    double[] o;
+    double[] b;
+    double[] c;
 
-    double c;
-    double k;
+    double h;
+    double s;
     int sins;
 
     public Terrain(int squares) {
@@ -41,10 +41,10 @@ public class Terrain {
     // The method will convert the mathematical function into the array
 
     private void convert() {
-        initialize();
+        initialize(500);
 
         for (int i = 0; i < squares; i++) {
-            int value = (int) Math.round(function(i, 100, 500)); // Range > 100 looks the best
+            int value = (int) Math.round(function(i, 100)); // Range > 100 looks the best
 
             if (value >= squares) {
                 terrain[i][squares - 1] = 1;
@@ -58,39 +58,35 @@ public class Terrain {
 
     // This method will initialize all the arrays and set certain values;
 
-    private void initialize() {
-        c = 0.5;
-        k = 5;
+    private void initialize(double height) {
+        h = height; // Max height
+        s = 1; // Stretch of the function
 
         sins = 10;
         Random r = new Random();
 
-        f = new double[sins];
         a = new double[sins];
-        o = new double[sins];
+        b = new double[sins];
+        c = new double[sins];
 
         for (int i = 0; i < sins; i++)
-            f[i] = r.nextDouble(10);
+            a[i] = r.nextDouble(2 * h) - h; // (c/f[i])
 
         for (int i = 0; i < sins; i++)
-            a[i] = r.nextDouble((c/f[i])) - (c/f[i]);
+            b[i] = r.nextDouble(10);
 
         for (int i = 0; i < sins; i++)
-            o[i] = r.nextDouble(6.28);
+            c[i] = r.nextDouble(6.28);
     }
 
     // This method makes the mathematical function
 
-    private double function2(int x) {
-        return Math.sin((double) x /10) * 5 + (double) squares / 2;
-    }
-
-    private double function(double x, double range, double height) {
+    private double function(double x, double range) {
         double result = 0;
         for (int i = 0; i < sins; i++)
-            result += a[i] * Math.sin(f[i] * (k * (x / range) + o[i]));
+            result += a[i] * Math.sin(b[i] * (s * (x / range) + c[i]));
 
-        result = result / sins * height + (double) squares / 2;
+        result = result / sins + (double) squares / 2;
         return result;
     }
 }
