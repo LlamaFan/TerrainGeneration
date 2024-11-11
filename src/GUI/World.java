@@ -13,6 +13,14 @@ public class World extends JPanel {
 
     private int[][] terrain;
 
+    double[] f;
+    double[] a;
+    double[] o;
+
+    double c;
+    double k;
+    int sins;
+
     public World() {
         terrain = new int[squares][squares];
 
@@ -59,8 +67,27 @@ public class World extends JPanel {
     // The method will convert the mathematical function into the array
 
     private void convert() {
+        c = 1;
+        k = 1;
+
+        sins = 5;
+        Random r = new Random();
+
+        f = new double[sins];
+        a = new double[sins];
+        o = new double[sins];
+
+        for (int i = 0; i < sins; i++)
+            f[i] = r.nextDouble(10);
+
+        for (int i = 0; i < sins; i++)
+            a[i] = r.nextDouble((c/f[i])) - (c/f[i]);
+
+        for (int i = 0; i < sins; i++)
+            o[i] = r.nextDouble(6.28);
+
         for (int i = 0; i < squares; i++) {
-            int value = (int) Math.round(function(i));
+            int value = (int) Math.round(function(i, 10));
 
             if (value >= squares) {
                 terrain[i][squares - 1] = 1;
@@ -78,32 +105,12 @@ public class World extends JPanel {
         return Math.sin((double) x /10) * 5 + (double) squares / 2;
     }
 
-    private double function(double x) {
-        Random r = new Random();
+    private double function(double x, double range) {
+        double result = 0;
+        for (int i = 0; i < sins; i++)
+            result += a[i] * Math.sin(f[i] * (k * (x / range) + o[i]));
 
-        double c = 1;
-        double k = 1;
-
-        double f1 = r.nextDouble(10);
-        double f2 = r.nextDouble(10);
-        double f3 = r.nextDouble(10);
-        double f4 = r.nextDouble(10);
-
-        double a1 = r.nextDouble((c/f1)) - (c/f1);
-        double a2 = r.nextDouble((c/f1)) - (c/f1);
-        double a3 = r.nextDouble((c/f1)) - (c/f1);
-        double a4 = r.nextDouble((c/f1)) - (c/f1);
-
-        double o1 = r.nextDouble(6.28);
-        double o2 = r.nextDouble(6.28);
-        double o3 = r.nextDouble(6.28);
-        double o4 = r.nextDouble(6.28);
-
-        double result = (
-            a1 * Math.sin(f1 * (k * (x / 10) + o1)) +
-            a2 * Math.sin(f2 * (k * (x / 10) + o2)) +
-            a3 * Math.sin(f3 * (k * (x / 10) + o3)) +
-            a4 * Math.sin(f4 * (k * (x / 10) + o4))) * 10 + (double) squares / 2;
+        result = result * 10 + (double) squares / 2;
         return result;
     }
 }
