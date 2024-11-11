@@ -60,8 +60,7 @@ public class World extends JPanel {
 
     private void convert() {
         for (int i = 0; i < squares; i++) {
-            int value = (int) function2(i);
-            System.out.println(value);
+            int value = (int) Math.round(function(i));
 
             if (value >= squares) {
                 terrain[i][squares - 1] = 1;
@@ -76,7 +75,7 @@ public class World extends JPanel {
     // This method makes the mathematical function
 
     private double function2(int x) {
-        return Math.sin(x /10) * 5 + squares / 2;
+        return Math.sin((double) x /10) * 5 + (double) squares / 2;
     }
 
     private double function(double x) {
@@ -104,7 +103,7 @@ public class World extends JPanel {
             a1 * Math.sin(f1 * (k * (x / 10) + o1)) +
             a2 * Math.sin(f2 * (k * (x / 10) + o2)) +
             a3 * Math.sin(f3 * (k * (x / 10) + o3)) +
-            a4 * Math.sin(f4 * (k * (x / 10) + o4))) * 10 + squares / 2;
+            a4 * Math.sin(f4 * (k * (x / 10) + o4))) * 10 + (double) squares / 2;
         return result;
     }
 }
