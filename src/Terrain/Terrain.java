@@ -60,7 +60,7 @@ public class Terrain {
 
     private void initialize(double height) {
         h = height; // Max height
-        s = 1; // Stretch of the function
+        s = 0.7; // Stretch of the function
 
         sins = 10;
         Random r = new Random();
