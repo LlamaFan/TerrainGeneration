@@ -5,7 +5,9 @@ import java.util.Random;
 public class Terrain {
     private final int squares;
 
-    private final int seed = 9843;
+    private int[] seed = {
+        9, 4, 5, 1, 4, 6, 8, 2, 6, 7
+    };
 
     private int[][] terrain;
 
@@ -13,9 +15,12 @@ public class Terrain {
     double[] b;
     double[] c;
 
+    double[] aa;
+
     double h;
     double s;
     int sins;
+    int sqau;
 
     public Terrain(int squares) {
         this.squares = squares;
@@ -41,7 +46,7 @@ public class Terrain {
     // The method will convert the mathematical function into the array
 
     private void convert() {
-        initialize(500);
+        initSins(500);
 
         for (int i = 0; i < squares; i++) {
             int value = (int) Math.round(function(i, 100)); // Range > 100 looks the best
@@ -58,7 +63,7 @@ public class Terrain {
 
     // This method will initialize all the arrays and set certain values;
 
-    private void initialize(double height) {
+    private void initSins(double height) {
         h = height; // Max height
         s = 0.7; // Stretch of the function
 
@@ -70,13 +75,17 @@ public class Terrain {
         c = new double[sins];
 
         for (int i = 0; i < sins; i++)
-            a[i] = r.nextDouble(2 * h) - h; // (c/f[i])
+            a[i] = r.nextDouble(2 * h) - h;
 
         for (int i = 0; i < sins; i++)
             b[i] = r.nextDouble(10);
 
         for (int i = 0; i < sins; i++)
             c[i] = r.nextDouble(6.28);
+    }
+
+    private void initSqua() {
+
     }
 
     // This method makes the mathematical function
@@ -88,5 +97,14 @@ public class Terrain {
 
         result = result / sins + (double) squares / 2;
         return result;
+    }
+
+    // This will generate a new random seed
+
+    private void newSeed() {
+        Random r = new Random();
+
+        for (int i = 0; i < seed.length; i++)
+            seed[i] = r.nextInt(20) - 10;
     }
 }
