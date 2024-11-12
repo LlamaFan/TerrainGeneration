@@ -47,6 +47,7 @@ public class Terrain {
 
     private void convert() {
         initSins(500);
+        initSins2(500);
 
         for (int i = 0; i < squares; i++) {
             int value = (int) Math.round(function(i, 100)); // Range > 100 looks the best
@@ -84,8 +85,37 @@ public class Terrain {
             c[i] = r.nextDouble(6.28);
     }
 
-    private void initSqua() {
+    private void initSins2(double height) {
+        h = height; // Max height
+        s = 0.7; // Stretch of the function
 
+        sins = 10;
+
+        a = new double[sins];
+
+        for (int i = 0; i < sins; i++) {
+            for (int j = 0; j < sins; j++)
+                a[i] += seed[j] << i; // Seed needs to be at least as long as
+
+            a[i] *= height ;
+            //System.out.println(a[i]);
+        }
+    }
+
+    // This will shift the bits one to right. Number must be smaller than 10 (Single digit number)
+
+    private int shift(int toMove) {
+        String digits = Integer.toBinaryString(toMove);
+        digits = digits.substring(digits.length() - 4);
+
+        int[] newArr = new int[4];
+        int result = 0;
+        int temp = digits.charAt(0);
+
+        for (int i = 1; i < 4; i++) {
+
+        }
+        return (result < 9) ? result : result - 10;// Returns a single digit number
     }
 
     // This method makes the mathematical function
